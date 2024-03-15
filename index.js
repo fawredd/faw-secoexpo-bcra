@@ -45,6 +45,8 @@ async function mainController(req,res){
   let cuit = req.query.cuit;
   let fechaInicio = decodeURIComponent(req.query.fechai);
   let fechaFin = decodeURIComponent(req.query.fechaf);
+  // Creo un objeto Date con la fecha actual
+  var fechaActual = new Date();
   // el cuit
   if (!(cuit && cuit.match(/\d{11}/g))){
       res.status(500).json('[{"error":"Specify cuit ?cuit=00000000000}]');
@@ -52,17 +54,16 @@ async function mainController(req,res){
   }
   // la fecha de inicio
   if (!(fechaInicio && fechaInicio.match(/\d\d[-]\d\d[-]\d{4}/))) {
-    res.status(500).json('[{"error":"Specify fechai ?fechai=01-01-2023}]');
-    return;
+    fechaInicio = "01/01/" + fechaActual.getFullYear();
   }
   fechaInicio = encodeURIComponent(fechaInicio);
   // la fecha de finalizacion
   if (!(fechaFin && fechaFin.match(/\d\d[-]\d\d[-]\d{4}/))) {
-    res.status(500).json('[{"error":"Specify fechaf ?fechaf=01-01-2023}]');
-    return;
+    fechaFin = "31/12/" + fechaActual.getFullYear();
   }
   fechaFin = encodeURIComponent(fechaFin);
   const queryURL = `https://www.bcra.gob.ar/BCRAyVos/exportaciones-bcra-certificados-cumplidos-secoexpo.asp?cuit=${cuit}&desde=${fechaInicio}&hasta=${fechaFin}&Tipo_Respuesta=1&B1=Enviar`;
+
   // ---- fin confeccion URL -----
 
   if (!back || (back != 'json' && back != 'xls') ){
@@ -98,7 +99,7 @@ console.log("START")
 console.time("measure");
   
   app.get("/", mainController);
-  app.listen(process.env.PORT || 3000, () => console.log(`Server running at http://localhost:3000`));
+  app.listen(process.env.PORT || 3000, () => console.log(`Server running at http://localhost:${process.env.PORT || 3000}`));
 
 console.log("END");
 console.timeEnd("measure");

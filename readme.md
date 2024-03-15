@@ -9,7 +9,8 @@ Con dicha informacion se crea un archivo JSON y un xls con los datos obtenidos.
 Utilizando app de forma local, utilizo los datos por diferencia por si en el futuro quiero realizar mas acciones sobre los mismos.
 
 Puede hacer consultas a la API con el siguiente link modificando los datos de la quey:
-https://faw-secoexpo-bcra.vercel.app/?back=json&cuit=00000000000&fechai=01-01-2019&fechaf=31-12-2024
+Ejemplo con cuit de COTO C.I.C.S.A.
+https://faw-secoexpo-bcra.vercel.app/?back=json&cuit=30548083156&fechai=01-01-2019&fechaf=31-12-2024
 
 1) Para utilizar la API localmente:
 npm i
@@ -25,5 +26,5 @@ cuit = "00000000000"
 fechai = "dd/mm/aaaa"
 fechaf = "dd/mm/aaaa"
 
-ejecutar con: node index.js
+ejecutar con: node local.js
 
